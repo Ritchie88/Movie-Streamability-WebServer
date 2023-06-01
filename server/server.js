@@ -1,6 +1,9 @@
-const express = require("express")
-const axios = require("axios")
-const app = express()
+const express = require("express");
+const axios = require("axios");
+const cors = require('cors');
+const app = express();
+app.use(cors());
+app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 const defaultHeader = {
@@ -8,13 +11,13 @@ const defaultHeader = {
   'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
 };
 
-async function collectMovieTitle(title = ""){
+async function collectMovieTitle(t = ""){
   const options = {
     method: 'GET',
     url: 'https://streaming-availability.p.rapidapi.com/v2/search/title',
     params: {
       title: t,
-      country: 'us',
+      country: 'ca',
       show_type: 'movie',
       output_language: 'en'
     },
@@ -26,21 +29,30 @@ async function collectMovieTitle(title = ""){
   
   try {
     const response = await axios.request(options);
-    console.log(response.data);
+    //console.log(response.data);
+    return JSON.stringify(response.data);
   } catch (error) {
     console.error(error);
   }
 
-  return result;
 }
+
 
 app.get("/", function(req, res) {
   res.send("It's working!")
 })
 
 app.get("/api", (req, res) => {
-  console.log(collectMovieTitle("batman"));
+  //console.log(collectMovieTitle("batman"));
   res.json({ message: "Hello from server!" });
+});
+
+app.get("/title", (req, res) => {
+  const message = collectMovieTitle("batman").then(ret=>{
+
+    console.log(message); 
+    res.send(message);
+  });
 });
 
 app.listen(PORT, () => {

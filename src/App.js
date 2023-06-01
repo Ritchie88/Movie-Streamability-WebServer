@@ -7,17 +7,19 @@ import {Routes , Route } from "react-router-dom";
 
 
 function App() {
-  const [data, setData] = React.useState(null);
+  
+  /*const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
     fetch("/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
-  }, []);
+    }, []);
+    <p>{!data ? "Loading..." : data}</p>
+    */
   
   return (
     <div>
-      <p>{!data ? "Loading..." : data}</p>
       <Routes>
                 <Route path = "/" element = {<Home/>}/>
                 <Route path = "/search" element = {<SearchPage/>}/>
