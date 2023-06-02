@@ -26,7 +26,16 @@ function SearchPage() {
             try {
               const response = await axios.request(options);
               //console.log(response.data);
-              document.getElementById("123").innerHTML = response.data;
+              let printRes = document.getElementById("printRes");
+              const results = response.data["result"];
+              for(let i = 0; i<results.length; i++){
+                let newEntry = document.createElement("a");
+                console.log(results[i]);
+                newEntry.innerHTML = results[i]["title"] + ", " + results[i]["year"];
+                newEntry.href = "/movie?title=" + results[i]["title"] + "&year=" + results[i]["year"];
+                printRes.appendChild(newEntry); 
+              }
+              console.log(response.data["result"])
               return JSON.stringify(response.data);
             } catch (error) {
               console.error(error);
@@ -36,10 +45,7 @@ function SearchPage() {
             //let movieList = await response.json();
           }
           }>Press Me </button>
-          <div id="123" />
-          <p>
-            Search For Movie
-          </p>
+          <li id = "printRes"/>
         </header>
       </div>
     );
