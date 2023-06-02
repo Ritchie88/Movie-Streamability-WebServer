@@ -3,6 +3,7 @@ import axios from "axios";
 
 function SearchPage() {
     
+    //Used to Clear Passed in element
     function clearPage(toClear){
       while(toClear.firstChild){
         toClear.removeChild(toClear.firstChild);
@@ -15,7 +16,7 @@ function SearchPage() {
         <body id="contents">
           <input type = "text" id = "input"/>
           <button onClick={async () => {
-
+            //Function for onClick, Sends Request to Movie Database and receives all movies which fall under entered title
               const titleInput = document.getElementById("input").value;
               const options = {
                 method: 'GET',
@@ -33,11 +34,13 @@ function SearchPage() {
               };
               
               try {
+                //once the request is made, if sucessfull the ressults will be displayed to user to click into further
                 const response = await axios.request(options);
-                //console.log(response.data);
                 let printRes = document.getElementById("printRes");
+                //Clear the previous results
                 clearPage(printRes);
                 const results = response.data["result"];
+                //Add the new results to the page
                 for(let i = 0; i<results.length; i++){
                   let newEntry = document.createElement("a");
                   console.log(results[i]);
@@ -45,8 +48,6 @@ function SearchPage() {
                   newEntry.href = "/movie?title=" + results[i]["title"] + "&year=" + results[i]["year"];
                   printRes.appendChild(newEntry); 
                 }
-                console.log(response.data["result"])
-                return JSON.stringify(response.data);
               } catch (error) {
                 console.error(error);
               }
