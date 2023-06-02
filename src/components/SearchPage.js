@@ -1,5 +1,6 @@
 import Header from "./Header";
 import axios from "axios";
+import "./Formatting/SearchPage.css"
 
 function SearchPage() {
     
@@ -11,9 +12,10 @@ function SearchPage() {
     }
 
     return (
-      <div className="SearchPage">
+      <div class="searchPage">
         <Header />
-        <body id="contents">
+        <body>
+          <div class="searchInput">
           <input type = "text" id = "input"/>
           <button onClick={async () => {
             //Function for onClick, Sends Request to Movie Database and receives all movies which fall under entered title
@@ -42,11 +44,17 @@ function SearchPage() {
                 const results = response.data["result"];
                 //Add the new results to the page
                 for(let i = 0; i<results.length; i++){
+                  let movie = document.createElement("li");
+                  let poster = document.createElement("img");
                   let newEntry = document.createElement("a");
-                  console.log(results[i]);
+
+                  poster.src = results[i]["posterURLs"]["original"];
+                  //Add the URL to the Block
                   newEntry.innerHTML = results[i]["title"] + ", " + results[i]["year"];
                   newEntry.href = "/movie?title=" + results[i]["title"] + "&year=" + results[i]["year"];
-                  printRes.appendChild(newEntry); 
+                  movie.appendChild(poster);
+                  movie.appendChild(newEntry);
+                  printRes.appendChild(movie); 
                 }
               } catch (error) {
                 console.error(error);
@@ -55,10 +63,11 @@ function SearchPage() {
               //const response = (await fetch("/title"));
               //let movieList = await response.json();
             }
-            }>Press Me </button>
+            }>Search </button>
+            </div>
 
 
-            <li id = "printRes"/>
+            <li id = "printRes" class = "results"/>
           </body>
       </div>
     );
