@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("../public");
 const PORT = process.env.PORT || 3001;
 
 const defaultHeader = {
@@ -53,6 +54,46 @@ app.get("/title", (req, res) => {
     console.log(message); 
     res.send(message);
   });
+});
+
+app.get("/imgs/0.5-Star.png", (req, res) => {
+  res.sendFile("./imgs/0.5-Star.png");
+});
+
+app.get("/imgs/1-Star.png", (req, res) => {
+  res.sendFile("./imgs/1-Star.png");
+});
+
+app.get("/imgs/1/5-Star.png", (req, res) => {
+  res.sendFile("./imgs/1.5-Star.png");
+});
+
+app.get("/imgs/2-Star.png", (req, res) => {
+  res.sendFile("./imgs/2-Star.png");
+});
+
+app.get("/imgs/2.5-Star.png", (req, res) => {
+  res.sendFile("./imgs/2.5-Star.png");
+});
+
+app.get("/imgs/3-Star.png", (req, res) => {
+  res.sendFile("./imgs/3-Star.png");
+});
+
+app.get("/imgs/3.5-Star.png", (req, res) => {
+  res.sendFile("./imgs/3.5-Star.png");
+});
+
+app.get("/imgs/4-Star.png", (req, res) => {
+  res.sendFile("./imgs/4-Star.png");
+});
+
+app.get("/imgs/4.5-Star.png", (req, res) => {
+  res.sendFile("./imgs/4.5-Star.png");
+});
+
+app.get("/imgs/5-Star.png", (req, res) => {
+  res.sendFile("./imgs/5-Star.png");
 });
 
 app.listen(PORT, () => {
